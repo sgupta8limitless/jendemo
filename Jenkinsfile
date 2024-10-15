@@ -17,6 +17,16 @@ pipeline {
                 bat "docker build -t jendemo-img ."
             }
         }
+        stage('Stop old container') {
+            steps {
+                bat "docker stop jendemo-cont"
+            }
+        }
+        stage('Removing old container') {
+            steps {
+                bat "docker rm jendemo-cont"
+            }
+        }
         stage('Run Docker Image') {
             steps {
                 bat "docker run --name=jendemo-cont -p 8081:8080 -d jendemo-img"
